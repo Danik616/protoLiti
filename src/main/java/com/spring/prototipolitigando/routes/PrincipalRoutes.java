@@ -9,9 +9,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 @Configuration
 public class PrincipalRoutes {
-    
+
     @Bean
-    public RouterFunction<ServerResponse> routeInit(PrincipalHandler principalHandler){
+    public RouterFunction<ServerResponse> routeInit(PrincipalHandler principalHandler) {
         return RouterFunctions.route(GET("/"), principalHandler::listarUsuarios);
     }
 }

@@ -1,7 +1,7 @@
 package com.spring.prototipolitigando.routes;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+// import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -18,8 +18,8 @@ public class PrincipalHandler {
     @Autowired
     public IUserRepository userRepository;
     
-    private Mono<ServerResponse> response404 = ServerResponse.notFound().build(); 
-    private Mono<ServerResponse> response406 = ServerResponse.status(HttpStatus.NOT_ACCEPTABLE).build();
+    // private Mono<ServerResponse> response404 = ServerResponse.notFound().build(); 
+    // private Mono<ServerResponse> response406 = ServerResponse.status(HttpStatus.NOT_ACCEPTABLE).build();
 
     public Mono<ServerResponse> listarUsuarios(ServerRequest request){
         return ServerResponse.ok()
