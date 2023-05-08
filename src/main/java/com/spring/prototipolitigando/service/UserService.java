@@ -3,12 +3,6 @@ package com.spring.prototipolitigando.service;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import java.util.stream.Collectors;
-
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.ReactiveUserDetails;
 import org.springframework.stereotype.Service;
 
 import com.spring.prototipolitigando.repository.IUserRepository;
@@ -25,15 +19,14 @@ public class UserService implements ReactiveUserDetailsService{
     }
 
     @Override
-    public Mono<ReactiveUserDetails> findByUsername(String email) {
+    public Mono<UserDetails> findByUsername(String email) {
         return userRepository.findByEmail(email)
-                .map(userEntity -> new User(userEntity.getEmail(), 
-                    userEntity.getPassword(),
-                    userEntity.getRole()
-                        .stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList()))
-                );
+                .map(userEntity -> User.builder()
+                .username(userEntity.getEmail())
+                .password(userEntity.getPassword())
+                .roles(userEntity.getRole().toArray(new String[0]))
+                .build()
+                ).map(UserDetails -> (UserDetails) UserDetails);
     }
 
     
