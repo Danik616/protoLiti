@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="rol")
-public class rolEntity {
+public class RolEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,15 +19,15 @@ public class rolEntity {
     @Column(name="rol_name")
     private String rol_name;
 
-    public rolEntity() {
+    public RolEntity() {
     }
 
-    public rolEntity(long id, String rol_name) {
+    public RolEntity(long id, String rol_name) {
         this.id = id;
         this.rol_name = rol_name;
     }
 
-    public rolEntity(String rol_name) {
+    public RolEntity(String rol_name) {
         this.rol_name = rol_name;
     }
 

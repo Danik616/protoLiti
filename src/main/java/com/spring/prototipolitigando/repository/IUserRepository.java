@@ -1,11 +1,10 @@
 package com.spring.prototipolitigando.repository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.spring.prototipolitigando.entity.userEntity;
+import com.spring.prototipolitigando.entity.UserEntity;
 
 import reactor.core.publisher.Mono;
 
-public interface IUserRepository extends JpaRepository<userEntity, Long>{
-    public Mono<userEntity> findByUsername(String username);
+public interface IUserRepository extends ReactiveCrudRepository<UserEntity, Long>{
+    public Mono<UserEntity> findByUsername(String username);
 }

@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name="usuario", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class userEntity {
+public class UserEntity{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,13 +31,21 @@ public class userEntity {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<rolEntity> role;
+    private Collection<RolEntity> role;
 
-    public userEntity() {
+    public UserEntity() {
     }
 
-    public userEntity(long id, String email, String password, Collection<rolEntity> role) {
+    public UserEntity(long id, String email, String password, Collection<RolEntity> role) {
         this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    
+
+    public UserEntity(String email, String password, Collection<RolEntity> role) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -67,13 +75,12 @@ public class userEntity {
         this.password = password;
     }
 
-    public Collection<rolEntity> getRole() {
+    public Collection<RolEntity> getRole() {
         return role;
     }
 
-    public void setRole(Collection<rolEntity> role) {
+    public void setRole(Collection<RolEntity> role) {
         this.role = role;
     }
-
     
 }
