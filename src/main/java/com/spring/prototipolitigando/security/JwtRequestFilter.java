@@ -1,5 +1,6 @@
 package com.spring.prototipolitigando.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -19,6 +20,7 @@ public class JwtRequestFilter implements WebFilter {
 @Value("${jwt.secret}")
 private String jwtSecret;
 
+@Autowired
 private final JwtUtil jwtUtil;
     
 public JwtRequestFilter(JwtUtil jwtUtil) {

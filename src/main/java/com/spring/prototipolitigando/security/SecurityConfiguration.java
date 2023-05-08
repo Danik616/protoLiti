@@ -56,6 +56,7 @@ public class SecurityConfiguration {
     protected SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
         http.authorizeExchange()
                 .pathMatchers(HttpMethod.POST, "/login").permitAll()
+                .pathMatchers(HttpMethod.POST, "/customers/sign-up").permitAll()
                 .pathMatchers(HttpMethod.GET, "/logout").permitAll()
                 .and()
                 .formLogin(login -> login
