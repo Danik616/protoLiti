@@ -12,6 +12,8 @@ public class PrincipalRoutes {
 
     @Bean
     public RouterFunction<ServerResponse> routeInit(PrincipalHandler principalHandler) {
-        return RouterFunctions.route(GET("/"), principalHandler::listarUsuarios);
+        return RouterFunctions.route(GET("/"), principalHandler::listarUsuarios)
+        .andRoute(POST("/customers/sign-up"), principalHandler::guardarUsuario);
+
     }
 }
