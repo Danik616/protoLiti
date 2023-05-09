@@ -73,7 +73,7 @@ public class SecurityConfiguration {
                 .exceptionHandling(handling -> handling.accessDeniedHandler(accessDeniedHandler))
                 .csrf().disable();
 
-        http.addFilterAt(jwtRequestFilter, SecurityWebFiltersOrder.AUTHENTICATION);
+        http.addFilterBefore(jwtRequestFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         return http.build();
     }
 

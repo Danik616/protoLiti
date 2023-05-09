@@ -29,7 +29,9 @@ public JwtRequestFilter(JwtUtil jwtUtil) {
 
 @Override
 public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-    String authorizationHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+    String requestUri = exchange.getRequest().getURI().getPath();
+    if(!requestUri.equals("/customers/sign-up")){
+        String authorizationHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
     
     if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
         String token = authorizationHeader.substring(7);
@@ -53,5 +55,7 @@ public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     } else {
         return Mono.error(new UnauthorizedException("Authorization header not found"));
     }
+    }
+    return chain.filter(exchange);
 }
 }
