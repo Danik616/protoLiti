@@ -58,4 +58,8 @@ public class UserEntity {
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
+
+    public Object getRole() {
+        return null;
+    }
 }
