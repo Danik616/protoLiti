@@ -1,7 +1,5 @@
 package com.spring.prototipolitigando.routes;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.spring.prototipolitigando.dto.UserRegisterDTO;
 import com.spring.prototipolitigando.entity.UserEntity;
+import com.spring.prototipolitigando.entity.UserRole;
 import com.spring.prototipolitigando.repository.IRolRepository;
 import com.spring.prototipolitigando.repository.IUserRepository;
 
@@ -48,9 +47,9 @@ public class PrincipalHandler {
             String encryptedPassword = encryptPassword(userDto.getPassword());
             Mono<ServerResponse> role = rolRepository.findById(userDto.getRole())
                     .flatMap(rol -> {
-                        UserEntity userEntity = new UserEntity(userDto.getEmail(), encryptedPassword,
-                                Arrays.asList(rol));
-
+                        UserEntity userEntity = new UserEntity(userDto.getEmail(), encryptedPassword);
+                        UserRole userRole= new UserRole(userEntity.getId(), rol.getId());
+                        userEntity.getUserRoles().add(userRole);
                         return userRepository.save(userEntity)
                                 .flatMap(savedUser -> ServerResponse.accepted().build())
                                 .switchIfEmpty(response406);
