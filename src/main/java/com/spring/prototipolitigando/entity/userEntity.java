@@ -1,61 +1,37 @@
 package com.spring.prototipolitigando.entity;
 
-import java.util.Collection;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
-@Table(name="usuario", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class UserEntity{
-    
+@Table("user")
+public class UserEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name="email")
+    private Long id;
     private String email;
-
-    @Column(name="password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<RolEntity> role;
+    @MappedCollection(idColumn = "user_id")
+    private Set<UserRole> userRoles = new HashSet<>();
 
-    public UserEntity() {
-    }
+    public UserEntity() {}
 
-    public UserEntity(long id, String email, String password, Collection<RolEntity> role) {
-        this.id = id;
+    public UserEntity(String email, String password) {
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
-    
+    // getters and setters
 
-    public UserEntity(String email, String password, Collection<RolEntity> role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,12 +51,11 @@ public class UserEntity{
         this.password = password;
     }
 
-    public Collection<RolEntity> getRole() {
-        return role;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRole(Collection<RolEntity> role) {
-        this.role = role;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
-    
 }

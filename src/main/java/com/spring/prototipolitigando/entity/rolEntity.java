@@ -1,52 +1,51 @@
 package com.spring.prototipolitigando.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
-@Table(name="rol")
+@Table("role")
 public class RolEntity {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+    private String name;
 
-    @Column(name="rol_name")
-    private String rol_name;
+    @MappedCollection(idColumn = "role_id")
+    private Set<UserRole> userRoles = new HashSet<>();
 
-    public RolEntity() {
+    public RolEntity() {}
+
+    public RolEntity(String name) {
+        this.name = name;
     }
 
-    public RolEntity(long id, String rol_name) {
-        this.id = id;
-        this.rol_name = rol_name;
-    }
+    // getters and setters
 
-    public RolEntity(String rol_name) {
-        this.rol_name = rol_name;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getRol_name() {
-        return rol_name;
+    public String getName() {
+        return name;
     }
 
-    public void setRol_name(String rol_name) {
-        this.rol_name = rol_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    
-    
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 }
